@@ -11,11 +11,42 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var window: UIWindow?
+    static let share = AppDelegate()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        let cahing = Caching.share
+        cahing.saveMenuItemIndex(index: 1)
+        
+        if #available(iOS 13, *) {
+            
+        } else {
+            let token = Caching.share.getToken()
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            if token.isEmpty || token.count <= 0 {
+                self.startLogin()
+            } else {
+                self.startMain()
+            }
+        }
         return true
+    }
+    
+    func startMain() {
+        let nav1 = UINavigationController()
+        let mainVC = ReportIssuesViewController.init(nibName: "ReportIssuesViewController", bundle: nil)
+        let mainView = mainVC
+        nav1.viewControllers = [mainView]
+        self.window!.rootViewController = nav1
+    }
+    
+    func startLogin() {
+        let nav1 = UINavigationController()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+        let mainView = loginVC
+        nav1.viewControllers = [mainView]
+        self.window!.rootViewController = nav1
     }
 
     // MARK: UISceneSession Lifecycle
