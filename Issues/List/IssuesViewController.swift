@@ -74,11 +74,11 @@ class IssuesViewController: BaseViewController {
        //status: -1 lấy tất cả, 0 - chưa xử lý, 1 - đang xử lý, 2 - đã xử lý
     func getData(status: Int) {
         self.showLoading()
-        if status == 0 {
+        if status == StatusIssueEnum.noProcess.rawValue {
             listDataMain = listNoProcess
-        } else if status == 1 {
+        } else if status == StatusIssueEnum.inProcess.rawValue  {
             listDataMain = listInprocess
-        } else if status == 2 {
+        } else if status == StatusIssueEnum.completed.rawValue  {
             listDataMain = listCompleted
         }
         
@@ -92,6 +92,7 @@ class IssuesViewController: BaseViewController {
     }
     
     func callService(status: Int) {
+        if !self.isInternet() {return}
         ServiceController().getIssuesByKeyword(status: status, keyword: "") { (response) in
             
             self.tableView.reloadData()
@@ -104,17 +105,18 @@ class IssuesViewController: BaseViewController {
             if let data = response?.data {
                 self.binData(status: status,data: data.result)
             } else {
-                print("Có lỗi xảy ra. Vui lòng thử lại")
+                self.showToast(message: "Có lỗi xảy ra. Vui lòng thử lại", isSuccess: false)
             }
         }
     }
     
     func reLogin(status: Int) {
+        if !self.isInternet() {return}
         ServiceController().relogin { (isResult) in
             if isResult {
                 self.callService(status: status)
             } else {
-                print("Có lỗi xảy ra. Vui lòng thử lại")
+               self.showToast(message: "Có lỗi xảy ra. Vui lòng thử lại", isSuccess: false)
                 return
             }
         }
@@ -122,11 +124,11 @@ class IssuesViewController: BaseViewController {
     
     func binData(status: Int, data: [Issue]) {
         self.listDataMain = data
-        if status == 0 {
+        if status == StatusIssueEnum.noProcess.rawValue {
             listNoProcess = listDataMain
-        } else if status == 1 {
+        } else if status == StatusIssueEnum.inProcess.rawValue {
             listInprocess = listDataMain
-        } else if status == 2 {
+        } else if status == StatusIssueEnum.completed.rawValue {
             listCompleted = listDataMain
         }
         

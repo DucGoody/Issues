@@ -10,22 +10,27 @@ import UIKit
 
 class MenuViewController: BaseViewController {
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var viewControl: UIControl!
+    
     var listItemMenu: [MenuEntity]!
     let avatarCell: String = "AvatarCell"
     let itemCell: String = "ItemMenuCell"
     var navigationControllerInput: UINavigationController?
-    
-    @IBOutlet weak var viewControl: UIControl!
+    var userProfile: UserProfile!
+    var imageAvatar: UIImage?
     var caching: Caching?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initUI()
+        self.updateAvatar()
     }
     
     func initUI() {
         self.caching = Caching.share
+        self.userProfile = self.caching?.getUserProfile()?.userProfile
+        
         self.isHiddenNavigation = true
         self.initListMenu()
         
@@ -35,6 +40,20 @@ class MenuViewController: BaseViewController {
         self.tableView.register(UINib.init(nibName: avatarCell, bundle: nil), forCellReuseIdentifier: avatarCell)
         self.tableView.register(UINib.init(nibName: itemCell, bundle: nil), forCellReuseIdentifier: itemCell)
         
+    }
+    
+    func updateAvatar() {
+       if !self.isInternet() {return}
+        ServiceController().loadListOfImages(imageNames: [self.userProfile.avatar]) { (images) in
+            if let items = images, items.count > 0 {
+                DispatchQueue.main.async {
+                    self.imageAvatar = items[0]
+                    self.tableView.reloadData()
+                }
+            } else {
+                self.imageAvatar = UIImage.init(named: "ic_default")
+            }
+        }
     }
     
     func initListMenu() {
@@ -97,6 +116,9 @@ extension MenuViewController: UITableViewDataSource, UITableViewDelegate {
     
     func getAvatarCell() -> UITableViewCell {
         if let cell = self.tableView.dequeueReusableCell(withIdentifier: avatarCell) as? AvatarCell {
+            cell.ivAvatar.image = self.imageAvatar
+            cell.lbName.text = self.userProfile.name
+            cell.lbPhone.text = self.userProfile.phone
             return cell
         }
         return UITableViewCell()

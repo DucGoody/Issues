@@ -34,6 +34,8 @@ class RegisterViewController: BaseViewController {
     }
     
     func register() {
+        if !self.isInternet() {return}
+        
         if self.valiidate() {
             ServiceController().register(name: self.tfName.text ?? "",
                                          phone: self.tfPhone.text ?? "",
@@ -44,7 +46,7 @@ class RegisterViewController: BaseViewController {
                                                     self.doLogin(data: data)
                                                 }
                                             } else {
-                                                print("Có lỗi xảy ra. Vui lòng thử lại!")
+                                                self.showToast(message: "Có lỗi xảy ra. Vui lòng thử lại", isSuccess: false)
                                             }
             }
         } else {

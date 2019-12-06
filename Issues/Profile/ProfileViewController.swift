@@ -43,7 +43,7 @@ class ProfileViewController: BaseViewController {
             if let data = response?.data {
                 self.updateUI(data: data)
             } else {
-                print("Có lỗi xảy ra. Vui lòng thử lại")
+                self.showToast(message: "Có lỗi xảy ra. Vui lòng thử lại", isSuccess: false)
             }
         }
     }
@@ -64,6 +64,7 @@ class ProfileViewController: BaseViewController {
     }
     
     func getProfile() {
+        if !self.isInternet() {return}
         self.showLoading()
         ServiceController().getProfile { (response) in
             if response?.code == 403 {
@@ -76,27 +77,26 @@ class ProfileViewController: BaseViewController {
                 self.updateAvatar(data)
                 self.updateUI(data: data)
             } else {
-                print("Có lỗi xảy ra. Vui lòng thử lại")
+                self.showToast(message: "Có lỗi xảy ra. Vui lòng thử lại", isSuccess: false)
             }
         }
     }
     
     func updateAvatar(_ data: UserProfile) {
-        let url = URL(string: data.avatar)
-        if let url2 = url {
-            DispatchQueue.global().async {
-                guard let data = try? Data(contentsOf: url2) else {
-                    self.ivAvatar.image = UIImage.init(named: "header")
-                    return
-                }
+        if !self.isInternet() {return}
+        ServiceController().loadListOfImages(imageNames: [data.avatar]) { (images) in
+            if let items = images, items.count > 0 {
                 DispatchQueue.main.async {
-                    self.ivAvatar.image = UIImage(data: data)
+                   self.ivAvatar.image = items[0]
                 }
+            } else {
+                self.ivAvatar.image = UIImage.init(named: "ic_default")
             }
         }
     }
     
     func reLogin(isUpdate: Bool = false, isUpload: Bool = false) {
+         if !self.isInternet() {return}
         ServiceController().relogin { (isResult) in
             if isResult {
                 if !isUpdate {
@@ -110,7 +110,7 @@ class ProfileViewController: BaseViewController {
                 }
                 
             } else {
-                print("Có lỗi xảy ra. Vui lòng thử lại")
+                self.showToast(message: "Có lỗi xảy ra. Vui lòng thử lại", isSuccess: false)
                 return
             }
         }
@@ -120,7 +120,7 @@ class ProfileViewController: BaseViewController {
         if self.isNilOrEmptyString(self.profile.name) ||
             self.isNilOrEmptyString(self.profile.phone) ||
             self.isNilOrEmptyString(self.profile.address) {
-            print("Vui lòng nhập đủ thông tin")
+            self.showToast(message: "Vui lòng nhập đầy đủ thông tin", isSuccess: false)
         }
         return true
     }
@@ -133,6 +133,7 @@ class ProfileViewController: BaseViewController {
     }
     
     func uploadAvatar() {
+        if !self.isInternet() {return}
         self.showLoading()
         ServiceController().upload(image: self.image, success: { (url) in
             self.hideLoading()
@@ -141,19 +142,6 @@ class ProfileViewController: BaseViewController {
             self.reLogin(isUpdate: false, isUpload: true)
             return
         }
-//        ServiceController().uploadImage(entity: self.image) { (response, isUpload) in
-//            if response?.code != 0 {
-//                self.reLogin(isUpdate: false, isUpload: true)
-//                return
-//            }
-//
-//            self.hideLoading()
-//
-//            if !isUpload {
-//                guard let data = response?.data else { return }
-//                self.profile.avatar = data
-//            }
-//        }
     }
 }
 

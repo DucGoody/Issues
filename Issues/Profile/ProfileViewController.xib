@@ -29,7 +29,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="583"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_default" translatesAutoresizingMaskIntoConstraints="NO" id="4DO-3a-vbB">
-                                    <rect key="frame" x="107" y="75" width="200.00000000000023" height="200"/>
+                                    <rect key="frame" x="107" y="75" width="200" height="200"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="200" id="ahq-Dd-8sl"/>
                                         <constraint firstAttribute="width" constant="200" id="b0F-ql-rlV"/>

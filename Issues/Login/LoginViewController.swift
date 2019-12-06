@@ -34,11 +34,12 @@ class LoginViewController: BaseViewController {
     }
     
     func login() {
-        if self.valiidate() {
+        if !self.isInternet() {return}
+        if !self.valiidate() {
             ServiceController().login(phone: self.tfPhone.text ?? "", password: self.tfPassword.text ?? "") { (data) in
                 self.hideLoading()
                 guard let data = data?.data else {
-                    print("Lỗi đăng nhập. Vui lòng kiểm tra lại!")
+                    self.showToast(message: "Lỗi đăng nhập. Vui lòng kiểm tra lại!", isSuccess: false)
                     return
                 }
                 self.doLogin(data: data)
@@ -62,7 +63,7 @@ class LoginViewController: BaseViewController {
         
         if !self.isNilOrEmptyString(phone) ||
             !self.isNilOrEmptyString(password) {
-            print("Vui lòng nhập đầy đủ thông tin")
+            self.showToast(message: "Vui lòng nhập đầy đủ thông tin", isSuccess: false)
             return false
         }
         return true

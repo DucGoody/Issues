@@ -55,7 +55,8 @@ class SearchViewController: BaseViewController {
     }
     
     func callService(text: String) {
-        ServiceController().getIssuesByKeyword(status: -1, keyword: text) { (response) in
+        if !self.isInternet() {return}
+        ServiceController().getIssuesByKeyword(status: StatusIssueEnum.all.rawValue, keyword: text) { (response) in
             self.tableView.reloadData()
             if response?.code == 403 {
                 self.reLogin(text: text)
@@ -68,17 +69,18 @@ class SearchViewController: BaseViewController {
                 self.lbEmptyData.isHidden = (self.listDataMain.count > 0)
                 self.tableView.reloadData()
             } else {
-                print("Có lỗi xảy ra. Vui lòng thử lại")
+                self.showToast(message: "Có lỗi xảy ra. Vui lòng thử lại", isSuccess: false)
             }
         }
     }
     
     func reLogin(text: String) {
+        if !self.isInternet() {return}
         ServiceController().relogin { (isResult) in
             if isResult {
                 self.callService(text: text)
             } else {
-                print("Có lỗi xảy ra. Vui lòng thử lại")
+                self.showToast(message: "Có lỗi xảy ra. Vui lòng thử lại", isSuccess: false)
                 return
             }
         }
@@ -86,6 +88,28 @@ class SearchViewController: BaseViewController {
     
     @IBAction func actionCancel(_ sender: Any) {
         self.navigationController?.popViewController(animated: false)
+    }
+    
+    func gotoVC(vc: UIViewController) {
+        Caching.share.saveMenuItemIndex(index: 1)
+        guard var viewControllers = self.navigationController?.viewControllers else { return }
+        viewControllers.remove(at: viewControllers.count - 1)
+        viewControllers.append(vc)
+        self.navigationController?.setViewControllers(viewControllers, animated: true)
+    }
+    
+    func loadImage(item: Issue) {
+        if !self.isInternet() {return}
+        ServiceController().loadListOfImages(imageNames: item.media) { (images) in
+            if let items = images, items.count > 0 {
+                let vc = ReportIssuesViewController()
+                vc.issue = item
+                vc.listImage = items
+                self.gotoVC(vc: vc)
+            } else {
+                return
+            }
+        }
     }
 }
 
@@ -106,5 +130,7 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let item = self.listDataMain[indexPath.row]
+        self.loadImage(item: item)
     }
 }

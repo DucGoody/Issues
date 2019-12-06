@@ -194,7 +194,9 @@ class ServiceController {
         }
     }
     
-    func createIssue(entity: Issue,completion: @escaping (_ result: DataReponseIssue?) -> Void) {
+    //status: -1 lấy tất cả, 0 - chưa xử lý, 1 - đang xử lý, 2 - đã xử lý
+    func createIssue(address: String, title: String, content:
+        String, media: [String], status: Int,completion: @escaping (_ result: DataReponseIssue?) -> Void) {
         
         guard let url2 = URL.init(string: "\(domain)/create-issue") else {
             completion(nil)
@@ -202,19 +204,19 @@ class ServiceController {
         }
         
         var dic = Dictionary<String, Any>.init()
-        dic["title"] = entity.title
-        dic["content"] = entity.content
-        dic["address"] = entity.add
-        dic["status"] = entity.status
+        dic["title"] = title
+        dic["content"] = content
+        dic["address"] = address
+        dic["status"] = status
         
         var arrMedia: String = ""
-        for (index,item) in entity.media.enumerated() {
+        for (index,item) in media.enumerated() {
             if index == 0 {
                 arrMedia.append("[")
             }
             arrMedia.append(item)
             
-            if index == entity.media.count - 1 {
+            if index == media.count - 1 {
                 arrMedia.append("]")
             }
         }
@@ -360,6 +362,55 @@ class ServiceController {
         // gọi resume để chạy hàm dataTask
         dataTask.resume()
     }
+    
+    func loadListOfImages(imageNames: [String],images: @escaping([UIImage]?) -> Void)
+       {
+           // Send HTTP GET Request
+           // Define server side script URL
+           let scriptUrl = "http://swiftdeveloperblog.com/list-of-images/"
+           
+           // Add one parameter just to avoid caching
+           let urlWithParams = scriptUrl + "?UUID=\(NSUUID().uuidString)"
+           
+           // Create NSURL Ibject
+           let myUrl = URL(string: urlWithParams);
+           
+           // Creaste URL Request
+           var request = URLRequest(url:myUrl!)
+           
+           // Set request HTTP method to GET. It could be POST as well
+           request.httpMethod = "GET"
+           
+           
+           // Excute HTTP Request
+           let task = URLSession.shared.dataTask(with: request) {
+               data, response, error in
+               
+               // Check for error
+               if error != nil
+               {
+                   print("error=\(error)")
+                   return
+               }
+               // Convert server json response to NSDictionary
+               do {
+                   if let convertedJsonIntoArray = try JSONSerialization.jsonObject(with: data!, options: []) as? NSArray {
+                       
+//                       self.images = convertedJsonIntoArray as [AnyObject]
+                       
+                       DispatchQueue.main.async {
+//                           self.myCollectionView!.reloadData()
+                       }
+                       
+                   }
+               } catch let error as NSError {
+                   print(error.localizedDescription)
+               }
+               
+           }
+           
+           task.resume()
+       }
 }
 
 enum MimeType: String{

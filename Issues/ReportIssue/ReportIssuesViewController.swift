@@ -15,9 +15,20 @@ class ReportIssuesViewController: BaseViewController {
     @IBOutlet weak var lbHintDescription: UILabel!
     @IBOutlet weak var tvDecription: UITextView!
     @IBOutlet weak var cstHeightTvDescription: NSLayoutConstraint!
+    @IBOutlet weak var viewStatus: UIView!
+    @IBOutlet weak var lbStatus: UILabel!
+    @IBOutlet weak var cstPaddingTopViewStatus: NSLayoutConstraint!
     
     let imageCell = "ImageCell"
     var listImage: [UIImage] = []
+    let imagePicker = UIImagePickerController()
+    var titleIssue: String = ""
+    var address: String = ""
+    var content: String = ""
+    var media: [String] = []
+    
+    // Xem lại issue
+    var issue: Issue?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,15 +38,24 @@ class ReportIssuesViewController: BaseViewController {
     func initUI() {
         self.isHiddenNavigation = false
         self.navigationItem.title = "Báo cáo sự cố"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "Gửi", style: .plain, target: self, action: #selector(onSend))
         
         self.initCollectionView()
         
+        self.imagePicker.delegate = self
         self.tfInputTitle.delegate = self
         self.tfInputAddress.delegate = self
         self.tfInputAddress.addTarget(self, action: #selector(onChangeAddress(textField:)), for: .editingChanged)
         self.tfInputTitle.addTarget(self, action: #selector(onChangeTitle(textField:)), for: .editingChanged)
         
         self.cstHeightTvDescription.constant = 36
+        
+        if let _ = self.issue {
+            self.initIssueDetail()
+        } else {
+            self.viewStatus.isHidden = true
+            self.cstPaddingTopViewStatus.constant = -20
+        }
     }
     
     func initCollectionView() {
@@ -44,12 +64,107 @@ class ReportIssuesViewController: BaseViewController {
         self.collectionView.register(UINib.init(nibName: imageCell, bundle: nil), forCellWithReuseIdentifier: imageCell)
     }
     
-    @objc func onChangeAddress(textField: UITextField) {
+    @objc func onSend() {
+        self.createIssue()
+    }
+    
+    func initIssueDetail() {
+        self.tfInputTitle.text = self.issue?.title
+        self.tfInputAddress.text = self.issue?.add
+        self.tvDecription.text = self.issue?.content
+        let status = StatusIssueEnum(rawValue: Int(self.issue?.status ?? "0") ?? 0)
+        self.lbStatus.text = status?.text
         
+        self.tvDecription.isEditable = false
+        self.tfInputAddress.isEnabled = false
+        self.tfInputTitle.isEnabled = false
+        
+        self.viewStatus.isHidden = false
+        self.cstPaddingTopViewStatus.constant = 24
+    }
+    
+    @objc func onChangeAddress(textField: UITextField) {
+        self.address = textField.text ?? ""
     }
     
     @objc func onChangeTitle(textField: UITextField) {
+        self.titleIssue = textField.text ?? ""
+    }
+    
+    func uploadAvatar() {
+        guard let item = self.listImage.last else { return }
+        if !self.isInternet() {return}
+        self.showLoading()
         
+        ServiceController().upload(image: item, success: { (url) in
+            self.hideLoading()
+            self.media.append(url)
+        }) { (str) in
+            self.reLogin(isUpload: true)
+            return
+        }
+    }
+    
+    func reLogin(isUpload: Bool = false) {
+        if !self.isInternet() {return}
+        ServiceController().relogin { (isResult) in
+            if isResult {
+                
+                if isUpload {
+                    self.uploadAvatar()
+                } else {
+                    self.createIssue()
+                }
+                
+            } else {
+                self.showToast(message: "Có lỗi xảy ra. Vui lòng thử lại", isSuccess: false)
+                return
+            }
+        }
+    }
+    
+    func createIssue() {
+        if !self.isValidate() {return}
+        
+        self.showLoading()
+        ServiceController().createIssue(address: self.address, title: self.titleIssue, content: self.content, media: media, status: StatusIssueEnum.noProcess.rawValue) { (response) in
+            if response?.code == 403 {
+                self.reLogin()
+                return
+            }
+            self.hideLoading()
+            
+            if let _ = response?.data {
+                self.resetUI()
+                self.showToast(message: "Tạo thành công", isSuccess: true)
+            } else {
+                self.showToast(message: "Có lỗi xảy ra. Vui lòng thử lại", isSuccess: false)
+            }
+        }
+    }
+    
+    func resetUI() {
+        self.tfInputAddress.text = ""
+        self.tfInputTitle.text = ""
+        self.cstHeightTvDescription.constant = 36
+        self.tvDecription.text = ""
+        self.lbHintDescription.isHidden = false
+        
+        self.listImage = []
+        self.titleIssue = ""
+        self.address = ""
+        self.content = ""
+        self.media = []
+    }
+    
+    func isValidate() -> Bool {
+        if self.isNilOrEmptyString(self.titleIssue) ||
+            self.isNilOrEmptyString(self.address) ||
+            self.isNilOrEmptyString(self.content) {
+            self.showToast(message: "Vui lòng nhập đủ thông tin", isSuccess: false)
+            return false
+        }
+        return true
     }
 }
 
@@ -83,9 +198,13 @@ extension ReportIssuesViewController : UICollectionViewDelegate, UICollectionVie
     
     func actionRemoveOrAdd(_ row: Int) {
         if row == -1 {//add
-            
+            imagePicker.allowsEditing = false
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.modalPresentationStyle = .overCurrentContext
+            self.present(imagePicker, animated: true, completion: nil)
         } else {
-            
+            self.listImage.remove(at: row)
+            self.collectionView.reloadData()
         }
     }
 }
@@ -107,11 +226,27 @@ extension ReportIssuesViewController : UITextFieldDelegate {
 extension ReportIssuesViewController : UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
-        self.lbHintDescription.isHidden = !(textView.text.count <= 0 && textView.text.isEmpty)
+        self.content = textView.text
+        self.lbHintDescription.isHidden = !self.isNilOrEmptyString(textView.text)
         let line = textView.numberOfLines() - 1
         self.cstHeightTvDescription.constant = CGFloat((line <= 0) ? 36 : (36 + 16 * line))
     }
 }
+
+extension ReportIssuesViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.listImage.append(pickedImage)
+            self.collectionView.reloadData()
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+}
+
 
 //UITextView
 extension UITextView{
@@ -120,5 +255,28 @@ extension UITextView{
             return Int(self.contentSize.height / fontUnwrapped.lineHeight)
         }
         return 0
+    }
+}
+
+
+enum StatusIssueEnum: Int {
+    case all = -1
+    case noProcess = 0
+    case inProcess = 1
+    case completed = 2
+    
+    var text: String {
+        get {
+            switch self {
+            case .all:
+                return "Tất cả"
+            case .noProcess:
+                return "Chưa xử lý"
+            case .inProcess:
+                return "Đang xử lý"
+            case .completed:
+                return "Đã xử lý"
+            }
+        }
     }
 }
