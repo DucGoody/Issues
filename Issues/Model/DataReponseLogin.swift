@@ -11,7 +11,7 @@ import ObjectMapper
 
 class DataReponseLogin: Mappable {
     var responseTime: String = ""
-    var code: Int = 0
+    var code: Int = -1
     var message: String = ""
     var data: DataLogin!
     
@@ -26,3 +26,40 @@ class DataReponseLogin: Mappable {
         data <- map["data"]
     }
 }
+
+class DataReponseProfile: Mappable {
+    var responseTime: String = ""
+    var code: Int = -1
+    var message: String = ""
+    var data: Profile!
+    
+    required init?(map: Map) {
+        mapping(map: map)
+    }
+    
+    func mapping(map: Map) {
+        responseTime <- map["responseTime"]
+        message <- map["message"]
+        code <- map["code"]
+        data <- map["data"]
+    }
+}
+
+struct DataReponseString: Mappable {
+     var responseTime: String = ""
+       var code: Int = -1
+       var message: String = ""
+       var data: String = ""
+       
+    init?(map: Map) {
+           mapping(map: map)
+       }
+       
+    mutating func mapping(map: Map) {
+           responseTime <- map["responseTime"]
+           message <- map["message"]
+           code <- map["code"]
+           data <- map["data"]
+       }
+}
+

@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         } else {
             let token = Caching.share.getToken()
-            self.window = UIWindow(frame: UIScreen.main.bounds)
+            
             if token.isEmpty || token.count <= 0 {
                 self.startLogin()
             } else {
@@ -33,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func startMain() {
+        self.window = UIWindow(frame: UIScreen.main.bounds)
         let nav1 = UINavigationController()
         let mainVC = ReportIssuesViewController.init(nibName: "ReportIssuesViewController", bundle: nil)
         let mainView = mainVC
@@ -41,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func startLogin() {
+        self.window = UIWindow(frame: UIScreen.main.bounds)
         let nav1 = UINavigationController()
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController")

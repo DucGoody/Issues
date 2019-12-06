@@ -17,6 +17,7 @@ class ReportIssuesViewController: BaseViewController {
     @IBOutlet weak var cstHeightTvDescription: NSLayoutConstraint!
     
     let imageCell = "ImageCell"
+    var listImage: [UIImage] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,14 +53,25 @@ class ReportIssuesViewController: BaseViewController {
     }
 }
 
+//  UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
 extension ReportIssuesViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return listImage.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: imageCell, for: indexPath) as? ImageCell {
+            if indexPath.row == listImage.count
+            {
+                cell.binData(image: nil, isAdd: true)
+            } else {
+                cell.row = indexPath.row
+                cell.binData(image: listImage[indexPath.row])
+            }
+            cell.onRemove = { [unowned self] row in
+                self.actionRemoveOrAdd(row)
+            }
             return cell
         }
         return UICollectionViewCell()
@@ -68,8 +80,17 @@ extension ReportIssuesViewController : UICollectionViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize.init(width: self.collectionView.frame.size.height, height: self.collectionView.frame.size.height)
     }
+    
+    func actionRemoveOrAdd(_ row: Int) {
+        if row == -1 {//add
+            
+        } else {
+            
+        }
+    }
 }
 
+//UITextFieldDelegate
 extension ReportIssuesViewController : UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -82,6 +103,7 @@ extension ReportIssuesViewController : UITextFieldDelegate {
     }
 }
 
+//UITextViewDelegate
 extension ReportIssuesViewController : UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
@@ -91,6 +113,7 @@ extension ReportIssuesViewController : UITextViewDelegate {
     }
 }
 
+//UITextView
 extension UITextView{
     func numberOfLines() -> Int{
         if let fontUnwrapped = self.font{

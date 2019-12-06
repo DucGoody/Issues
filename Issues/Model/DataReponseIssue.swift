@@ -1,5 +1,5 @@
 //
-//  DataResponseListObject.swift
+//  DataReponseIssue.swift
 //  Issues
 //
 //  Created by HoangVanDuc on 12/5/19.
@@ -9,17 +9,17 @@
 import UIKit
 import ObjectMapper
 
-struct DataResponseListObject<T>: Mappable {
+class DataReponseIssue: Mappable {
     var responseTime: String = ""
-    var code: Int = 0
+    var code: Int = -1
     var message: String = ""
-    var data: [T] = []
+    var data: Issue!
     
-    init?(map: Map) {
+    required init?(map: Map) {
         mapping(map: map)
     }
     
-    mutating func mapping(map: Map) {
+    func mapping(map: Map) {
         responseTime <- map["responseTime"]
         message <- map["message"]
         code <- map["code"]

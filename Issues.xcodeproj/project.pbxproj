@@ -13,12 +13,14 @@
 		0462EB312398199500379F22 /* ImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0462EB2F2398199500379F22 /* ImageCell.xib */; };
 		0462EB352398280900379F22 /* ServiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0462EB342398280900379F22 /* ServiceController.swift */; };
 		04994A7923989FA200D507D9 /* Caching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04994A7823989FA200D507D9 /* Caching.swift */; };
-		04994A7D2398DA2800D507D9 /* DataReponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04994A7C2398DA2800D507D9 /* DataReponseObject.swift */; };
-		04994A7F2398DA7A00D507D9 /* DataResponseListObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04994A7E2398DA7A00D507D9 /* DataResponseListObject.swift */; };
 		04994A812398E20D00D507D9 /* DataLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04994A802398E20D00D507D9 /* DataLogin.swift */; };
 		04994A832398E27700D507D9 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04994A822398E27700D507D9 /* UserProfile.swift */; };
 		04994A872398F51B00D507D9 /* TPKeyboardAvoidingSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04994A862398F51B00D507D9 /* TPKeyboardAvoidingSwift.swift */; };
 		04994A892398FE7400D507D9 /* DataReponseLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04994A882398FE7400D507D9 /* DataReponseLogin.swift */; };
+		04994A8B239963E200D507D9 /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04994A8A239963E200D507D9 /* Issue.swift */; };
+		04994A8D239964B200D507D9 /* DataReponseIssue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04994A8C239964B200D507D9 /* DataReponseIssue.swift */; };
+		04994A8F239964F600D507D9 /* DataReponseListIssue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04994A8E239964F600D507D9 /* DataReponseListIssue.swift */; };
+		04994A912399678E00D507D9 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04994A902399678E00D507D9 /* Profile.swift */; };
 		04ECCAC023974E5400F26734 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECCABF23974E5400F26734 /* AppDelegate.swift */; };
 		04ECCAC223974E5400F26734 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ECCAC123974E5400F26734 /* SceneDelegate.swift */; };
 		04ECCAC723974E5400F26734 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04ECCAC523974E5400F26734 /* Main.storyboard */; };
@@ -73,12 +75,14 @@
 		0462EB2F2398199500379F22 /* ImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
 		0462EB342398280900379F22 /* ServiceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceController.swift; sourceTree = "<group>"; };
 		04994A7823989FA200D507D9 /* Caching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Caching.swift; sourceTree = "<group>"; };
-		04994A7C2398DA2800D507D9 /* DataReponseObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataReponseObject.swift; sourceTree = "<group>"; };
-		04994A7E2398DA7A00D507D9 /* DataResponseListObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataResponseListObject.swift; sourceTree = "<group>"; };
 		04994A802398E20D00D507D9 /* DataLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLogin.swift; sourceTree = "<group>"; };
 		04994A822398E27700D507D9 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		04994A862398F51B00D507D9 /* TPKeyboardAvoidingSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPKeyboardAvoidingSwift.swift; sourceTree = "<group>"; };
 		04994A882398FE7400D507D9 /* DataReponseLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataReponseLogin.swift; sourceTree = "<group>"; };
+		04994A8A239963E200D507D9 /* Issue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issue.swift; sourceTree = "<group>"; };
+		04994A8C239964B200D507D9 /* DataReponseIssue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataReponseIssue.swift; sourceTree = "<group>"; };
+		04994A8E239964F600D507D9 /* DataReponseListIssue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataReponseListIssue.swift; sourceTree = "<group>"; };
+		04994A902399678E00D507D9 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		04ECCABC23974E5400F26734 /* Issues.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Issues.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04ECCABF23974E5400F26734 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04ECCAC123974E5400F26734 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -180,11 +184,13 @@
 		04994A7623989EE000D507D9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				04994A7C2398DA2800D507D9 /* DataReponseObject.swift */,
-				04994A7E2398DA7A00D507D9 /* DataResponseListObject.swift */,
 				04994A802398E20D00D507D9 /* DataLogin.swift */,
+				04994A8A239963E200D507D9 /* Issue.swift */,
 				04994A822398E27700D507D9 /* UserProfile.swift */,
 				04994A882398FE7400D507D9 /* DataReponseLogin.swift */,
+				04994A8C239964B200D507D9 /* DataReponseIssue.swift */,
+				04994A8E239964F600D507D9 /* DataReponseListIssue.swift */,
+				04994A902399678E00D507D9 /* Profile.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -544,20 +550,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				04ECCAF92397596D00F26734 /* ReportIssuesViewController.swift in Sources */,
+				04994A8B239963E200D507D9 /* Issue.swift in Sources */,
+				04994A8D239964B200D507D9 /* DataReponseIssue.swift in Sources */,
 				04ECCAF023974E8E00F26734 /* LoginViewController.swift in Sources */,
 				04994A832398E27700D507D9 /* UserProfile.swift in Sources */,
 				04ECCB0523976C1700F26734 /* AvatarCell.swift in Sources */,
 				04ECCB0E23978FBD00F26734 /* SettingsViewController.swift in Sources */,
 				04ECCAC023974E5400F26734 /* AppDelegate.swift in Sources */,
+				04994A8F239964F600D507D9 /* DataReponseListIssue.swift in Sources */,
 				04ECCB0923976C2500F26734 /* ItemMenuCell.swift in Sources */,
 				04994A872398F51B00D507D9 /* TPKeyboardAvoidingSwift.swift in Sources */,
 				04ECCB18239796A400F26734 /* ProfileViewController.swift in Sources */,
 				0462EB352398280900379F22 /* ServiceController.swift in Sources */,
-				04994A7D2398DA2800D507D9 /* DataReponseObject.swift in Sources */,
 				04ECCB002397624400F26734 /* MenuViewController.swift in Sources */,
 				04994A892398FE7400D507D9 /* DataReponseLogin.swift in Sources */,
-				04994A7F2398DA7A00D507D9 /* DataResponseListObject.swift in Sources */,
 				04ECCB1D2397AE6800F26734 /* SearchViewController.swift in Sources */,
+				04994A912399678E00D507D9 /* Profile.swift in Sources */,
 				04ECCAC223974E5400F26734 /* SceneDelegate.swift in Sources */,
 				04994A812398E20D00D507D9 /* DataLogin.swift in Sources */,
 				04ECCAF42397558700F26734 /* RegisterViewController.swift in Sources */,

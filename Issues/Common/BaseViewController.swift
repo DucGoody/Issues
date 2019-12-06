@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class BaseViewController: UIViewController {
     var isHiddenNavigation: Bool = false
@@ -14,15 +15,18 @@ class BaseViewController: UIViewController {
     var topSafeArea: CGFloat = 0
     var bottomSafeArea: CGFloat = 0
     
+    private var viewLoad: UIView!
+    private var indicator: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.barTintColor = self.hexStringToUIColor(hex: "916E25")
-        let item2 = UIBarButtonItem.init(image: UIImage.init(named: "ic_menu2")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(actionMenu))
-        self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationItem.leftBarButtonItems = [item2]
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        
+        self.initNav()
+        self.getHeightArea()
+        self.initLoading()
+    }
+    
+    private func getHeightArea() {
         if #available(iOS 11.0, *) {
             let keyWindow = UIApplication.shared.connectedScenes
                 .filter({$0.activationState == .foregroundActive})
@@ -36,6 +40,14 @@ class BaseViewController: UIViewController {
             topSafeArea = topLayoutGuide.length
             bottomSafeArea = bottomLayoutGuide.length
         }
+    }
+    
+    private func initNav() {
+        self.navigationController?.navigationBar.barTintColor = self.hexStringToUIColor(hex: "916E25")
+        let item2 = UIBarButtonItem.init(image: UIImage.init(named: "ic_menu2")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(actionMenu))
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationItem.leftBarButtonItems = [item2]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -91,5 +103,50 @@ class BaseViewController: UIViewController {
             return !text.isEmpty && text.count > 0
         }
         return false
+    }
+    
+    private func initLoading() {
+        viewLoad = UIView.init(frame: CGRect.init(x: 0, y: 0, width: 30, height: 30))
+        indicator = UIActivityIndicatorView.init(activityIndicatorStyle: .medium)
+        
+        self.view.addSubview(viewLoad)
+        self.viewLoad.addSubview(indicator)
+        
+        self.addShadowBold(self.viewLoad)
+        self.indicator.startAnimating()
+        self.indicator.color = .white
+        self.viewLoad.layer.cornerRadius = 8
+        self.viewLoad.clipsToBounds = true
+        
+        self.viewLoad.snp.makeConstraints({ (view) in
+            view.center.equalTo(self.view)
+            view.height.equalTo(30)
+            view.width.equalTo(30)
+        })
+        
+        self.indicator.snp.makeConstraints { (indi) in
+            indi.center.equalTo(self.viewLoad)
+        }
+        
+        self.viewLoad.isHidden = true
+    }
+    
+    func showLoading() {
+        self.viewLoad.isHidden = false
+    }
+    
+    func hideLoading() {
+        self.viewLoad.isHidden = true
+    }
+    
+    func addShadowBold(_ yourView: UIView) {
+        yourView.layer.masksToBounds = false
+        yourView.layer.shadowColor = UIColor.gray.cgColor
+        yourView.layer.shadowOpacity = 0.5
+        yourView.layer.shadowOffset = CGSize(width: -1, height: 1)
+        yourView.layer.shadowRadius = 5
+        yourView.layer.shadowPath = UIBezierPath(rect: yourView.bounds).cgPath
+        yourView.layer.shouldRasterize = true
+        yourView.layer.rasterizationScale = UIScreen.main.scale
     }
 }

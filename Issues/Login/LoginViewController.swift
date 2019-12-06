@@ -24,20 +24,27 @@ class LoginViewController: BaseViewController {
     
     @IBAction func actionRegister(_ sender: Any) {
         let vc = RegisterViewController()
-        vc.modalPresentationStyle = .overCurrentContext
-        self.present(vc, animated: true, completion: nil)
+//        vc.modalPresentationStyle = .overCurrentContext
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func actionLogin(_ sender: Any) {
+        self.showLoading()
         self.login()
     }
     
     func login() {
         if self.valiidate() {
             ServiceController().login(phone: self.tfPhone.text ?? "", password: self.tfPassword.text ?? "") { (data) in
-                guard let data = data?.data else {return}
+                self.hideLoading()
+                guard let data = data?.data else {
+                    print("Lỗi đăng nhập. Vui lòng kiểm tra lại!")
+                    return
+                }
                 self.doLogin(data: data)
             }
+        } else {
+            self.hideLoading()
         }
     }
     

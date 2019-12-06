@@ -25,10 +25,11 @@ class RegisterViewController: BaseViewController {
     }
     
     @IBAction func actionLogin(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func actionRegister(_ sender: Any) {
+        self.showLoading()
         self.register()
     }
     
@@ -37,6 +38,7 @@ class RegisterViewController: BaseViewController {
             ServiceController().register(name: self.tfName.text ?? "",
                                          phone: self.tfPhone.text ?? "",
                                          password: self.tfPassword.text ?? "") { (data) in
+                                            self.hideLoading()
                                             if data?.code == 0 {
                                                 if let data = data?.data {
                                                     self.doLogin(data: data)
@@ -45,6 +47,8 @@ class RegisterViewController: BaseViewController {
                                                 print("Có lỗi xảy ra. Vui lòng thử lại!")
                                             }
             }
+        } else {
+            self.hideLoading()
         }
     }
     
