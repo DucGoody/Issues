@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         let cahing = Caching.share
-        cahing.saveMenuItemIndex(index: 1)
+        cahing.saveMenuItemIndex(index: 2)
         
         if #available(iOS 13, *) {
             
@@ -35,7 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func startMain() {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let nav1 = UINavigationController()
-        let mainVC = ReportIssuesViewController.init(nibName: "ReportIssuesViewController", bundle: nil)
+         let mainVC = IssuesViewController.init(nibName: "IssuesViewController", bundle: nil)
+//        let mainVC = ReportIssuesViewController.init(nibName: "ReportIssuesViewController", bundle: nil)
         let mainView = mainVC
         nav1.viewControllers = [mainView]
         self.window!.rootViewController = nav1

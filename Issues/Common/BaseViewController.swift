@@ -132,6 +132,7 @@ class BaseViewController: UIViewController {
     }
     
     func showLoading() {
+        self.view.endEditing(true)
         self.viewLoad.isHidden = false
     }
     

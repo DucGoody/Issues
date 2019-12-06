@@ -19,7 +19,7 @@ class ServiceController {
         let token = Caching.share.getToken()
         return [
             "Accept": "application/json",
-            "token": token
+            "Authorization": token
         ]
     }
     
@@ -77,9 +77,29 @@ class ServiceController {
         }
     }
     
+    func relogin(completion: @escaping (_ isResult: Bool) -> Void) {
+        let caching = Caching.share
+        let profile = caching.getUserProfile()
+        if let user = profile?.userProfile {
+            let password = user.password
+            self.login(phone: user.phone, password: user.password) { (response) in
+                guard let entity = response?.data else {
+                    completion(false)
+                    return
+                }
+                entity.userProfile.password = password
+                caching.saveUserProfile(object: entity)
+                completion(true)
+            }
+        }
+        
+        completion(false)
+    }
+    
     //status: -1 lấy tất cả, 0 - chưa xử lý, 1 - đang xử lý, 2 - đã xử lý
     func getIssuesByKeyword(status: Int, keyword: String, completion: @escaping (_ result: DataReponseListIssue?) -> Void) {
-        guard let url2 = URL.init(string: "\(domain)/issues?status=\(status)&keyword=\(keyword)") else {
+         let keywordFormat = keyword.trimmingCharacters(in: CharacterSet.whitespaces).folding(options: .diacriticInsensitive, locale: .current)
+        guard let url2 = URL.init(string: "\(domain)/issues?status=\(status)&keyword=\(keywordFormat)") else {
             completion(nil)
             return
         }
@@ -102,6 +122,7 @@ class ServiceController {
     
     //Chi tiết issue
     func getDetailIssue(id: String, completion: @escaping (_ result: DataReponseIssue?) -> Void) {
+        
         guard let url2 = URL.init(string: "\(domain)/issues/\(id)") else {
             completion(nil)
             return
@@ -124,6 +145,7 @@ class ServiceController {
     }
     
     func getProfile(completion: @escaping (_ result: DataReponseProfile?) -> Void) {
+        
         guard let url2 = URL.init(string: "\(domain)/profile") else {
             completion(nil)
             return
@@ -146,6 +168,7 @@ class ServiceController {
     }
     
     func updateProfile(profile: Profile,completion: @escaping (_ result: DataReponseProfile?) -> Void) {
+        
         guard let url2 = URL.init(string: "\(domain)/update-profile") else {
             completion(nil)
             return
@@ -174,6 +197,7 @@ class ServiceController {
     }
     
     func createIssue(entity: Issue,completion: @escaping (_ result: DataReponseIssue?) -> Void) {
+        
          guard let url2 = URL.init(string: "\(domain)/create-issue") else {
              completion(nil)
              return

@@ -21,4 +21,11 @@ class IssueCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    
+    func binData(entity: Issue) {
+        self.lbName.text = entity.title
+        self.lbAddress.text = entity.add
+        self.lbHour.text = entity.time
+        self.lbDay.text = entity.date
+    }
 }

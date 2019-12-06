@@ -29,7 +29,7 @@ struct Issue: Mappable {
         id <- map["id"]
         title <- map["title"]
         content <- map["content"]
-        add <- map["add"]
+        add <- map["address"]
         time <- map["time"]
         date <- map["date"]
         status <- map["status"]

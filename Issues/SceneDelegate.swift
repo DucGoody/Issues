@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             print("ViewController not found")
             return
         }
-        let mainVC = ReportIssuesViewController.init(nibName: "ReportIssuesViewController", bundle: nil)
+        let mainVC = IssuesViewController.init(nibName: "IssuesViewController", bundle: nil)
         
         let rootNC = UINavigationController(rootViewController:(!token.isEmpty && token.count > 0) ? mainVC : loginVC)
         self.window?.rootViewController = rootNC
@@ -57,7 +57,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
 }
 

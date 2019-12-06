@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -10,6 +10,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchViewController" customModule="Issues" customModuleProvider="target">
             <connections>
                 <outlet property="cstHeightStatusBar" destination="DQq-mZ-erd" id="cXy-hd-0Cz"/>
+                <outlet property="lbEmptyData" destination="QSH-7M-ATk" id="f5u-k0-y4U"/>
                 <outlet property="tableView" destination="JA4-9e-ZBF" id="EEq-TJ-GmT"/>
                 <outlet property="tfSearch" destination="2MZ-ZZ-iK2" id="uAu-hP-qVK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -39,7 +40,7 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <textInputTraits key="textInputTraits"/>
                                     <connections>
-                                        <action selector="actionChangeText:" destination="-1" eventType="valueChanged" id="wfK-fk-PRR"/>
+                                        <action selector="actionChangeText:" destination="-1" eventType="editingChanged" id="Ige-nb-dF3"/>
                                     </connections>
                                 </textField>
                             </subviews>
@@ -81,17 +82,28 @@
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JA4-9e-ZBF">
                     <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chưa có dữ liệu" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QSH-7M-ATk">
+                    <rect key="frame" x="16" y="452.5" width="382" height="19.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="QSH-7M-ATk" firstAttribute="centerY" secondItem="JA4-9e-ZBF" secondAttribute="centerY" constant="-30" id="8CO-UK-kbw"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="JA4-9e-ZBF" secondAttribute="trailing" id="Ac6-iQ-3Uz"/>
+                <constraint firstItem="QSH-7M-ATk" firstAttribute="centerX" secondItem="JA4-9e-ZBF" secondAttribute="centerX" id="ElI-Y3-Z4H"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="KgU-R1-5K8" secondAttribute="trailing" id="Gfa-KP-U7l"/>
                 <constraint firstItem="KgU-R1-5K8" firstAttribute="top" secondItem="32z-xM-8Pg" secondAttribute="bottom" id="al1-6a-tW5"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="32z-xM-8Pg" secondAttribute="trailing" id="dyW-41-NBS"/>
                 <constraint firstItem="32z-xM-8Pg" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="lFY-9X-SUp"/>
+                <constraint firstItem="QSH-7M-ATk" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="n7y-Cl-bf2"/>
                 <constraint firstItem="JA4-9e-ZBF" firstAttribute="top" secondItem="KgU-R1-5K8" secondAttribute="bottom" id="oAA-9S-tI0"/>
                 <constraint firstItem="JA4-9e-ZBF" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="qRc-zY-Hzl"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="QSH-7M-ATk" secondAttribute="trailing" constant="16" id="uLN-Tb-Y9C"/>
                 <constraint firstItem="KgU-R1-5K8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="uUv-Aw-Icy"/>
                 <constraint firstItem="32z-xM-8Pg" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="xxC-3f-HHj"/>
                 <constraint firstAttribute="bottom" secondItem="JA4-9e-ZBF" secondAttribute="bottom" id="ydz-Kv-DDS"/>

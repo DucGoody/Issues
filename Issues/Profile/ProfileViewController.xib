@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -39,7 +39,7 @@
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Họ và tên" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="oDV-Jk-fg2">
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Hàn Duy" placeholder="Họ và tên" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="oDV-Jk-fg2">
                                             <rect key="frame" x="0.0" y="20" width="323" height="39.5"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
@@ -76,7 +76,7 @@
                                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="asdasdad" placeholder="Nhập số điện thoại" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="0zW-3h-fxq">
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0962659411" placeholder="Nhập số điện thoại" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="0zW-3h-fxq">
                                             <rect key="frame" x="0.0" y="20" width="323" height="39.5"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                             <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="done"/>
@@ -107,19 +107,18 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sW1-Iz-aTn">
                                     <rect key="frame" x="41.5" y="513" width="331" height="82"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Số điện thoại" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tvy-ac-lQ0">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Địa chỉ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tvy-ac-lQ0">
                                             <rect key="frame" x="0.0" y="0.0" width="331" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="RAx-dK-tmT">
-                                            <rect key="frame" x="0.0" y="17" width="331" height="60"/>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Trung tâm thương mại Vincom Mega Mall - Times City" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="RAx-dK-tmT">
+                                            <rect key="frame" x="-6" y="17" width="337" height="60"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="60" id="EFC-Bs-4XU"/>
                                             </constraints>
-                                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -136,7 +135,7 @@
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="b4Z-3b-dJ7" secondAttribute="trailing" id="7ap-Op-sAF"/>
                                         <constraint firstItem="Tvy-ac-lQ0" firstAttribute="top" secondItem="sW1-Iz-aTn" secondAttribute="top" id="BqA-AD-Un1"/>
-                                        <constraint firstItem="RAx-dK-tmT" firstAttribute="leading" secondItem="sW1-Iz-aTn" secondAttribute="leading" id="N2E-YC-Kwp"/>
+                                        <constraint firstItem="RAx-dK-tmT" firstAttribute="leading" secondItem="sW1-Iz-aTn" secondAttribute="leading" constant="-6" id="N2E-YC-Kwp"/>
                                         <constraint firstAttribute="trailing" secondItem="RAx-dK-tmT" secondAttribute="trailing" id="XhF-5a-tdw"/>
                                         <constraint firstItem="b4Z-3b-dJ7" firstAttribute="leading" secondItem="sW1-Iz-aTn" secondAttribute="leading" id="e3p-je-tOq"/>
                                         <constraint firstItem="RAx-dK-tmT" firstAttribute="top" secondItem="Tvy-ac-lQ0" secondAttribute="bottom" id="fox-xS-TJ2"/>

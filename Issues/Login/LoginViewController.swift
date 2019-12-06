@@ -49,9 +49,10 @@ class LoginViewController: BaseViewController {
     }
     
     func doLogin(data: DataLogin) {
+        data.userProfile.password = self.tfPassword.text ?? ""
         caching?.saveUserProfile(object: data)
         
-        let vc = ReportIssuesViewController()
+        let vc = IssuesViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

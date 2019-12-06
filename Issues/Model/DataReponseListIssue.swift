@@ -13,7 +13,7 @@ class DataReponseListIssue: Mappable {
     var responseTime: String = ""
     var code: Int = 0
     var message: String = ""
-    var data: Issue!
+    var data: DataListIssue!
     
     required init?(map: Map) {
         mapping(map: map)
