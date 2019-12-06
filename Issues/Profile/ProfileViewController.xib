@@ -9,6 +9,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileViewController" customModule="Issues" customModuleProvider="target">
             <connections>
+                <outlet property="cstHeightTextView" destination="EFC-Bs-4XU" id="Jff-7W-9NJ"/>
+                <outlet property="ivAvatar" destination="4DO-3a-vbB" id="sKH-ua-cwB"/>
+                <outlet property="tfName" destination="oDV-Jk-fg2" id="MMm-xj-iHa"/>
+                <outlet property="tfPhone" destination="0zW-3h-fxq" id="h5r-wh-Uy2"/>
+                <outlet property="tvAddress" destination="RAx-dK-tmT" id="rd0-nt-LVX"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -17,21 +22,21 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="46s-9F-Zst">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="46s-9F-Zst" customClass="TPKeyboardAvoidingScrollView" customModule="Issues" customModuleProvider="target">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A5J-cF-Fz2">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="583"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="header" translatesAutoresizingMaskIntoConstraints="NO" id="4DO-3a-vbB">
-                                    <rect key="frame" x="107" y="79" width="200" height="200"/>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_default" translatesAutoresizingMaskIntoConstraints="NO" id="4DO-3a-vbB">
+                                    <rect key="frame" x="107" y="75" width="200.00000000000023" height="200"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="200" id="ahq-Dd-8sl"/>
                                         <constraint firstAttribute="width" constant="200" id="b0F-ql-rlV"/>
                                     </constraints>
                                 </imageView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cst-f8-nGT">
-                                    <rect key="frame" x="41.5" y="361" width="331" height="60"/>
+                                    <rect key="frame" x="41.5" y="357" width="331" height="60"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Họ và tên" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RPz-RN-igm">
                                             <rect key="frame" x="0.0" y="0.0" width="331" height="17"/>
@@ -43,6 +48,9 @@
                                             <rect key="frame" x="0.0" y="20" width="323" height="39.5"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
+                                            <connections>
+                                                <action selector="onChangeName:" destination="-1" eventType="editingChanged" id="KvX-9L-gnU"/>
+                                            </connections>
                                         </textField>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V1l-q3-j6Z">
                                             <rect key="frame" x="0.0" y="59.5" width="331" height="0.5"/>
@@ -68,7 +76,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e8C-5Q-1Kz">
-                                    <rect key="frame" x="41.5" y="437" width="331" height="60"/>
+                                    <rect key="frame" x="41.5" y="433" width="331" height="60"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Số điện thoại" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kaJ-sx-oaB">
                                             <rect key="frame" x="0.0" y="0.0" width="331" height="17"/>
@@ -80,6 +88,9 @@
                                             <rect key="frame" x="0.0" y="20" width="323" height="39.5"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                             <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="done"/>
+                                            <connections>
+                                                <action selector="onChangePhone:" destination="-1" eventType="editingChanged" id="LJw-Zf-FFw"/>
+                                            </connections>
                                         </textField>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2IL-13-Y9U">
                                             <rect key="frame" x="0.0" y="59.5" width="331" height="0.5"/>
@@ -105,7 +116,7 @@
                                     </constraints>
                                 </view>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sW1-Iz-aTn">
-                                    <rect key="frame" x="41.5" y="513" width="331" height="82"/>
+                                    <rect key="frame" x="41.5" y="509" width="331" height="58"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Địa chỉ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tvy-ac-lQ0">
                                             <rect key="frame" x="0.0" y="0.0" width="331" height="17"/>
@@ -114,17 +125,17 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Trung tâm thương mại Vincom Mega Mall - Times City" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="RAx-dK-tmT">
-                                            <rect key="frame" x="-6" y="17" width="337" height="60"/>
+                                            <rect key="frame" x="-6" y="17" width="337" height="36"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="60" id="EFC-Bs-4XU"/>
+                                                <constraint firstAttribute="height" constant="36" id="EFC-Bs-4XU"/>
                                             </constraints>
                                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b4Z-3b-dJ7">
-                                            <rect key="frame" x="0.0" y="81.5" width="331" height="0.5"/>
+                                            <rect key="frame" x="0.0" y="57.5" width="331" height="0.5"/>
                                             <color key="backgroundColor" red="0.87843137250000003" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="0.5" id="2et-mU-Drt"/>
@@ -146,11 +157,14 @@
                                     </constraints>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FHM-kP-CVZ">
-                                    <rect key="frame" x="146.5" y="295" width="121" height="32"/>
+                                    <rect key="frame" x="146.5" y="291" width="121" height="32"/>
                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                     <state key="normal" title="Đổi ảnh đại diện">
                                         <color key="titleColor" red="0.56862745098039214" green="0.43137254901960786" blue="0.14509803921568626" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </state>
+                                    <connections>
+                                        <action selector="actionChangeAvatar:" destination="-1" eventType="touchUpInside" id="nIO-iS-0B4"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -159,10 +173,11 @@
                                 <constraint firstItem="e8C-5Q-1Kz" firstAttribute="top" secondItem="cst-f8-nGT" secondAttribute="bottom" constant="16" id="9dh-ZX-GKv"/>
                                 <constraint firstItem="4DO-3a-vbB" firstAttribute="centerX" secondItem="A5J-cF-Fz2" secondAttribute="centerX" id="Azc-nT-hLu"/>
                                 <constraint firstItem="e8C-5Q-1Kz" firstAttribute="leading" secondItem="cst-f8-nGT" secondAttribute="leading" id="GmB-sM-pWj"/>
+                                <constraint firstAttribute="bottom" secondItem="sW1-Iz-aTn" secondAttribute="bottom" constant="16" id="J8X-sh-d9Z"/>
                                 <constraint firstItem="FHM-kP-CVZ" firstAttribute="top" secondItem="4DO-3a-vbB" secondAttribute="bottom" constant="16" id="PI4-pu-7LB"/>
                                 <constraint firstItem="FHM-kP-CVZ" firstAttribute="centerX" secondItem="4DO-3a-vbB" secondAttribute="centerX" id="QGC-WT-Wv2"/>
                                 <constraint firstItem="sW1-Iz-aTn" firstAttribute="top" secondItem="e8C-5Q-1Kz" secondAttribute="bottom" constant="16" id="SD2-Zx-FmI"/>
-                                <constraint firstItem="4DO-3a-vbB" firstAttribute="centerY" secondItem="A5J-cF-Fz2" secondAttribute="centerY" multiplier="2:5" id="TMV-4L-amM"/>
+                                <constraint firstItem="4DO-3a-vbB" firstAttribute="centerY" secondItem="A5J-cF-Fz2" secondAttribute="centerY" multiplier="3:5" id="TMV-4L-amM"/>
                                 <constraint firstItem="cst-f8-nGT" firstAttribute="width" secondItem="A5J-cF-Fz2" secondAttribute="width" multiplier="4:5" id="b7q-3X-Q7w"/>
                                 <constraint firstItem="e8C-5Q-1Kz" firstAttribute="trailing" secondItem="cst-f8-nGT" secondAttribute="trailing" id="mdU-SG-pZJ"/>
                                 <constraint firstItem="cst-f8-nGT" firstAttribute="centerX" secondItem="4DO-3a-vbB" secondAttribute="centerX" id="u7O-HC-GRB"/>
@@ -175,8 +190,7 @@
                         <constraint firstItem="A5J-cF-Fz2" firstAttribute="leading" secondItem="3nb-0V-uK4" secondAttribute="leading" id="1LA-X0-rSc"/>
                         <constraint firstItem="A5J-cF-Fz2" firstAttribute="width" secondItem="3nb-0V-uK4" secondAttribute="width" id="9z9-qY-ECo"/>
                         <constraint firstItem="A5J-cF-Fz2" firstAttribute="top" secondItem="3nb-0V-uK4" secondAttribute="top" id="AzD-F2-FzU"/>
-                        <constraint firstItem="A5J-cF-Fz2" firstAttribute="bottom" secondItem="StZ-t0-ket" secondAttribute="bottom" constant="818" id="R3A-D1-1Lb"/>
-                        <constraint firstItem="3nb-0V-uK4" firstAttribute="bottom" secondItem="A5J-cF-Fz2" secondAttribute="bottom" id="SDQ-9y-AVB"/>
+                        <constraint firstItem="A5J-cF-Fz2" firstAttribute="bottom" secondItem="StZ-t0-ket" secondAttribute="bottom" id="R3A-D1-1Lb"/>
                         <constraint firstItem="A5J-cF-Fz2" firstAttribute="trailing" secondItem="StZ-t0-ket" secondAttribute="trailing" constant="414" id="SaA-iS-jXI"/>
                         <constraint firstItem="A5J-cF-Fz2" firstAttribute="top" secondItem="StZ-t0-ket" secondAttribute="top" id="Uu9-B5-AMX"/>
                         <constraint firstItem="A5J-cF-Fz2" firstAttribute="leading" secondItem="StZ-t0-ket" secondAttribute="leading" id="WoF-H2-rI1"/>
@@ -198,6 +212,6 @@
         </view>
     </objects>
     <resources>
-        <image name="header" width="1024" height="810"/>
+        <image name="ic_default" width="956" height="1276"/>
     </resources>
 </document>

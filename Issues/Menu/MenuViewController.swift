@@ -34,6 +34,7 @@ class MenuViewController: BaseViewController {
         self.tableView.separatorColor = .clear
         self.tableView.register(UINib.init(nibName: avatarCell, bundle: nil), forCellReuseIdentifier: avatarCell)
         self.tableView.register(UINib.init(nibName: itemCell, bundle: nil), forCellReuseIdentifier: itemCell)
+        
     }
     
     func initListMenu() {

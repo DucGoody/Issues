@@ -17,5 +17,10 @@ class AvatarCell: UITableViewCell {
         super.awakeFromNib()
         self.selectionStyle = .none
         self.ivAvatar.layer.cornerRadius = self.ivAvatar.frame.size.width/2
+        
+        let caching = Caching.share
+        let profile = caching.getUserProfile()?.userProfile
+        self.lbName.text = profile?.name
+        self.lbPhone.text = profile?.phone
     }
 }

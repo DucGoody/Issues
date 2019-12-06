@@ -31,7 +31,7 @@ class DataReponseProfile: Mappable {
     var responseTime: String = ""
     var code: Int = -1
     var message: String = ""
-    var data: Profile!
+    var data: UserProfile!
     
     required init?(map: Map) {
         mapping(map: map)
