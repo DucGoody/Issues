@@ -20,6 +20,9 @@ class LoginViewController: BaseViewController {
         self.isHiddenNavigation = true
         self.btnLogin.layer.cornerRadius = 5
         self.caching = Caching.share
+        
+        self.tfPhone.text = "0968326697"
+        self.tfPassword.text = "Quynh123"
     }
     
     @IBAction func actionRegister(_ sender: Any) {
@@ -35,7 +38,7 @@ class LoginViewController: BaseViewController {
     
     func login() {
         if !self.isInternet() {return}
-        if !self.valiidate() {
+        if self.valiidate() {
             ServiceController().login(phone: self.tfPhone.text ?? "", password: self.tfPassword.text ?? "") { (data) in
                 self.hideLoading()
                 guard let data = data?.data else {
@@ -61,7 +64,7 @@ class LoginViewController: BaseViewController {
         let phone = self.tfPhone.text
         let password = self.tfPassword.text
         
-        if !self.isNilOrEmptyString(phone) ||
+        if !self.isNilOrEmptyString(phone) &&
             !self.isNilOrEmptyString(password) {
             self.showToast(message: "Vui lòng nhập đầy đủ thông tin", isSuccess: false)
             return false

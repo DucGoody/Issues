@@ -40,12 +40,24 @@ class ProfileViewController: BaseViewController {
                 self.reLogin(isUpdate: true)
                 return
             }
+            self.hideLoading()
+            
             if let data = response?.data {
-                self.updateUI(data: data)
+                self.binData(data.userProfile)
             } else {
                 self.showToast(message: "Có lỗi xảy ra. Vui lòng thử lại", isSuccess: false)
             }
         }
+    }
+    
+    func binData(_ data: UserProfile) {
+        let caching = Caching.share
+        let item = caching.getUserProfile()
+        item?.userProfile = data
+        if let item = item {
+             caching.saveUserProfile(object: item)
+        }
+        self.updateUI(data: data)
     }
     
     @IBAction func actionChangeAvatar(_ sender: Any) {
@@ -74,23 +86,10 @@ class ProfileViewController: BaseViewController {
             self.hideLoading()
             
             if let data = response?.data {
-                self.updateAvatar(data)
+                self.ivAvatar.setImage(data.avatar)
                 self.updateUI(data: data)
             } else {
                 self.showToast(message: "Có lỗi xảy ra. Vui lòng thử lại", isSuccess: false)
-            }
-        }
-    }
-    
-    func updateAvatar(_ data: UserProfile) {
-        if !self.isInternet() {return}
-        ServiceController().loadListOfImages(imageNames: [data.avatar]) { (images) in
-            if let items = images, items.count > 0 {
-                DispatchQueue.main.async {
-                   self.ivAvatar.image = items[0]
-                }
-            } else {
-                self.ivAvatar.image = UIImage.init(named: "ic_default")
             }
         }
     }
@@ -117,9 +116,9 @@ class ProfileViewController: BaseViewController {
     }
     
     func isValidate() -> Bool {
-        if self.isNilOrEmptyString(self.profile.name) ||
-            self.isNilOrEmptyString(self.profile.phone) ||
-            self.isNilOrEmptyString(self.profile.address) {
+        if !self.isNilOrEmptyString(self.profile.name) &&
+            !self.isNilOrEmptyString(self.profile.phone) &&
+            !self.isNilOrEmptyString(self.profile.address) {
             self.showToast(message: "Vui lòng nhập đầy đủ thông tin", isSuccess: false)
         }
         return true

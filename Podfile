@@ -5,10 +5,10 @@ target 'Issues' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for Issues
 
 	pod 'SnapKit'
 	pod 'SwiftyJSON'
 	pod 'Alamofire'
 	pod 'ObjectMapper'
+	pod 'Kingfisher'
 end

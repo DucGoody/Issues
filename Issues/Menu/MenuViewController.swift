@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class MenuViewController: BaseViewController {
     @IBOutlet weak var tableView: UITableView!
@@ -24,7 +25,6 @@ class MenuViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initUI()
-        self.updateAvatar()
     }
     
     func initUI() {
@@ -40,20 +40,6 @@ class MenuViewController: BaseViewController {
         self.tableView.register(UINib.init(nibName: avatarCell, bundle: nil), forCellReuseIdentifier: avatarCell)
         self.tableView.register(UINib.init(nibName: itemCell, bundle: nil), forCellReuseIdentifier: itemCell)
         
-    }
-    
-    func updateAvatar() {
-       if !self.isInternet() {return}
-        ServiceController().loadListOfImages(imageNames: [self.userProfile.avatar]) { (images) in
-            if let items = images, items.count > 0 {
-                DispatchQueue.main.async {
-                    self.imageAvatar = items[0]
-                    self.tableView.reloadData()
-                }
-            } else {
-                self.imageAvatar = UIImage.init(named: "ic_default")
-            }
-        }
     }
     
     func initListMenu() {
@@ -116,7 +102,7 @@ extension MenuViewController: UITableViewDataSource, UITableViewDelegate {
     
     func getAvatarCell() -> UITableViewCell {
         if let cell = self.tableView.dequeueReusableCell(withIdentifier: avatarCell) as? AvatarCell {
-            cell.ivAvatar.image = self.imageAvatar
+            cell.ivAvatar.setImage(self.userProfile.avatar)
             cell.lbName.text = self.userProfile.name
             cell.lbPhone.text = self.userProfile.phone
             return cell
@@ -157,5 +143,17 @@ class MenuEntity: NSObject {
     init(imageName: String, name: String) {
         self.imageName = imageName
         self.name = name
+    }
+}
+
+extension UIImageView {
+    
+    func setImage(_ url: String) {
+        let urlString = "\(ServiceController().domain)\(url)"
+        if let url2 = URL(string: urlString){
+            let placeholder = UIImage(named: "ic_default")
+            self.kf.indicatorType = .activity
+            self.kf.setImage(with: url2,placeholder: placeholder)
+        }
     }
 }

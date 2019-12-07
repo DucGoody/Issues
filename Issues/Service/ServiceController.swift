@@ -165,14 +165,14 @@ class ServiceController {
         }
     }
     
-    func updateProfile(profile: UserProfile,completion: @escaping (_ result: DataReponseProfile?) -> Void) {
+    func updateProfile(profile: UserProfile,completion: @escaping (_ result: DataReponseUpdateProfile?) -> Void) {
         
         guard let url2 = URL.init(string: "\(domain)/update-profile") else {
             completion(nil)
             return
         }
         
-        var dic = Dictionary<String, Any>.init()
+        var dic = Dictionary<String, Any>()
         dic["name"] = profile.name
         dic["address"] = profile.address
         dic["phone"] = profile.phone
@@ -189,7 +189,7 @@ class ServiceController {
                     return
             }
             
-            let object = Mapper<DataReponseProfile>().map(JSON: jsonItem)
+            let object = Mapper<DataReponseUpdateProfile>().map(JSON: jsonItem)
             completion(object)
         }
     }
@@ -220,7 +220,7 @@ class ServiceController {
                 arrMedia.append("]")
             }
         }
-        dic["media"] = arrMedia
+//        dic["media"] = arrMedia
         
         Alamofire.request(url2, method: .post, parameters: dic, encoding: JSONEncoding.default, headers: self.getHeader()).responseJSON { (response) in
             
@@ -362,55 +362,6 @@ class ServiceController {
         // gọi resume để chạy hàm dataTask
         dataTask.resume()
     }
-    
-    func loadListOfImages(imageNames: [String],images: @escaping([UIImage]?) -> Void)
-       {
-           // Send HTTP GET Request
-           // Define server side script URL
-           let scriptUrl = "http://swiftdeveloperblog.com/list-of-images/"
-           
-           // Add one parameter just to avoid caching
-           let urlWithParams = scriptUrl + "?UUID=\(NSUUID().uuidString)"
-           
-           // Create NSURL Ibject
-           let myUrl = URL(string: urlWithParams);
-           
-           // Creaste URL Request
-           var request = URLRequest(url:myUrl!)
-           
-           // Set request HTTP method to GET. It could be POST as well
-           request.httpMethod = "GET"
-           
-           
-           // Excute HTTP Request
-           let task = URLSession.shared.dataTask(with: request) {
-               data, response, error in
-               
-               // Check for error
-               if error != nil
-               {
-                   print("error=\(error)")
-                   return
-               }
-               // Convert server json response to NSDictionary
-               do {
-                   if let convertedJsonIntoArray = try JSONSerialization.jsonObject(with: data!, options: []) as? NSArray {
-                       
-//                       self.images = convertedJsonIntoArray as [AnyObject]
-                       
-                       DispatchQueue.main.async {
-//                           self.myCollectionView!.reloadData()
-                       }
-                       
-                   }
-               } catch let error as NSError {
-                   print(error.localizedDescription)
-               }
-               
-           }
-           
-           task.resume()
-       }
 }
 
 enum MimeType: String{

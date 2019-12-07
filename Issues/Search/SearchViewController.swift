@@ -99,17 +99,16 @@ class SearchViewController: BaseViewController {
     }
     
     func loadImage(item: Issue) {
-        if !self.isInternet() {return}
-        ServiceController().loadListOfImages(imageNames: item.media) { (images) in
-            if let items = images, items.count > 0 {
+//        if !self.isInternet() {return}
+//        ServiceController().loadListOfImages(imageNames: item.media) { (images) in
+//            if let items = images, items.count > 0 {
                 let vc = ReportIssuesViewController()
                 vc.issue = item
-                vc.listImage = items
                 self.gotoVC(vc: vc)
-            } else {
-                return
-            }
-        }
+//            } else {
+//                return
+//            }
+//        }
     }
 }
 

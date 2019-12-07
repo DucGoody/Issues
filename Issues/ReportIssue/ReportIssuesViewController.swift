@@ -99,6 +99,7 @@ class ReportIssuesViewController: BaseViewController {
         ServiceController().upload(image: item, success: { (url) in
             self.hideLoading()
             self.media.append(url)
+            self.collectionView.reloadData()
         }) { (str) in
             self.reLogin(isUpload: true)
             return
@@ -158,9 +159,9 @@ class ReportIssuesViewController: BaseViewController {
     }
     
     func isValidate() -> Bool {
-        if self.isNilOrEmptyString(self.titleIssue) ||
-            self.isNilOrEmptyString(self.address) ||
-            self.isNilOrEmptyString(self.content) {
+        if !self.isNilOrEmptyString(self.titleIssue) &&
+            !self.isNilOrEmptyString(self.address) &&
+            !self.isNilOrEmptyString(self.content) {
             self.showToast(message: "Vui lòng nhập đủ thông tin", isSuccess: false)
             return false
         }
@@ -172,17 +173,18 @@ class ReportIssuesViewController: BaseViewController {
 extension ReportIssuesViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return listImage.count + 1
+        return self.media.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: imageCell, for: indexPath) as? ImageCell {
-            if indexPath.row == listImage.count
+            if indexPath.row == self.media.count
             {
-                cell.binData(image: nil, isAdd: true)
+                cell.binData(isAdd: true)
             } else {
                 cell.row = indexPath.row
-                cell.binData(image: listImage[indexPath.row])
+                cell.binData()
+                cell.ivImgae.setImage(self.media[indexPath.row])
             }
             cell.onRemove = { [unowned self] row in
                 self.actionRemoveOrAdd(row)
@@ -227,7 +229,7 @@ extension ReportIssuesViewController : UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         self.content = textView.text
-        self.lbHintDescription.isHidden = !self.isNilOrEmptyString(textView.text)
+        self.lbHintDescription.isHidden = self.isNilOrEmptyString(textView.text)
         let line = textView.numberOfLines() - 1
         self.cstHeightTvDescription.constant = CGFloat((line <= 0) ? 36 : (36 + 16 * line))
     }
@@ -237,7 +239,7 @@ extension ReportIssuesViewController: UIImagePickerControllerDelegate, UINavigat
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             self.listImage.append(pickedImage)
-            self.collectionView.reloadData()
+            self.uploadAvatar()
         }
         dismiss(animated: true, completion: nil)
     }

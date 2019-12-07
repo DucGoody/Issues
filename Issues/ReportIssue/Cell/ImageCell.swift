@@ -25,8 +25,7 @@ class ImageCell: UICollectionViewCell {
         self.btnAdd.clipsToBounds = true
     }
     
-    func binData(image: UIImage?, isAdd: Bool = false) {
-        self.ivImgae.image = image
+    func binData(isAdd: Bool = false) {
         self.btnAdd.isHidden = !isAdd
         self.ivImgae.isHidden = isAdd
         self.btnRemove.isHidden = isAdd

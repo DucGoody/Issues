@@ -45,6 +45,24 @@ class DataReponseProfile: Mappable {
     }
 }
 
+class DataReponseUpdateProfile: Mappable {
+    var responseTime: String = ""
+    var code: Int = -1
+    var message: String = ""
+    var data: DataUpdateProfile!
+    
+    required init?(map: Map) {
+        mapping(map: map)
+    }
+    
+    func mapping(map: Map) {
+        responseTime <- map["responseTime"]
+        message <- map["message"]
+        code <- map["code"]
+        data <- map["data"]
+    }
+}
+
 struct DataReponseString: Mappable {
      var responseTime: String = ""
        var code: Int = -1

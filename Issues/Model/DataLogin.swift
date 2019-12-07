@@ -24,3 +24,17 @@ class DataLogin: Mappable {
         userProfile <- map["userProfile"]
     }
 }
+
+class DataUpdateProfile: Mappable {
+    var userType: Int = 0
+    var userProfile: UserProfile!
+    
+    required init?(map: Map) {
+        mapping(map: map)
+    }
+    
+    func mapping(map: Map) {
+        userType <- map["userType"]
+        userProfile <- map["userProfile"]
+    }
+}
